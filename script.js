@@ -8,6 +8,15 @@ async function printPlanets(){
   
   console.log(list.results);
 
+  list.results.forEach(planet => {
+  
+    let button = document.createElement('button');
+
+    button.innerHTML = `<button>${planet.name}</button>`;
+
+    b_planet.appendChild(button);
+
+  });
 }
 
 printPlanets();

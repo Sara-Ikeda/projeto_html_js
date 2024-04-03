@@ -1,6 +1,7 @@
 let b_planet = document.getElementById("b_planet");
 let info_planet = document.getElementById("info_planet");
 let search_planet = document.getElementById("search_planet");
+let info_residents = document.getElementById("info_residents");
 
 async function planets(){
   let p = await fetch('https://swapi.dev/api/planets/?format=json');
@@ -48,6 +49,36 @@ function showPlanet(show_planet){
     info_planet.removeChild(info_planet.firstElementChild);
   }
   info_planet.appendChild(info);
+
+  
+  showResidents(show_planet.residents);
+}
+
+function showResidents(list_resident){
+  let info = document.createElement('info');
+  console.log(list_resident)
+  list_resident.forEach( async resident =>{
+    let r = await fetch(resident);
+  
+    let resident_info = await r.json();
+  
+    let info_c = document.createElement('info');
+
+    info_c.innerHTML = `
+      <table><tr>
+        <td><strong>Nome: </strong>${resident_info.name}</td>
+        <td><strong>Data de Nascimento: </strong>${resident_info.birth_year}</td>
+      </tr></table>
+    `;
+
+    info.appendChild(info_c);
+  });
+  
+  if(info_residents.hasChildNodes()){
+    info_residents.removeChild(info_residents.firstElementChild);
+  }
+  info_residents.appendChild(info);
+
 }
 
 planets();
